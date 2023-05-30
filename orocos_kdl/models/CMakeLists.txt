@@ -1,7 +1,6 @@
 OPTION(BUILD_MODELS "Build models for some well known robots" FALSE)
-
 IF(BUILD_MODELS)
-  
+
   ADD_LIBRARY(orocos-kdl-models SHARED puma560.cpp kukaLWR_DHnew.cpp) 
   INCLUDE_DIRECTORIES(${PROJ_SOURCE_DIR}/src ${PROJ_BINARY_DIR}/src)
   SET_TARGET_PROPERTIES( orocos-kdl-models PROPERTIES
@@ -22,14 +21,18 @@ IF(BUILD_MODELS)
       PUBLIC_HEADER DESTINATION include/kdl
   )
 
+include_directories(${PROJ_SOURCE_DIR}/src ${PROJ_BINARY_DIR}/src)
 ENDIF(BUILD_MODELS)
+include_directories(${PROJ_SOURCE_DIR}/src ${PROJ_BINARY_DIR}/src)
 
 INCLUDE(CMakeDependentOption)
 CMAKE_DEPENDENT_OPTION(BUILD_MODELS_DEMO "Build demo for some of the models" OFF "BUILD_MODELS" OFF)  
-IF(BUILD_MODELS_DEMO)
-  ADD_EXECUTABLE(p560test puma560test.cpp)
-  TARGET_LINK_LIBRARIES(p560test orocos-kdl-models)
-  SET_TARGET_PROPERTIES( p560test PROPERTIES
+
+option(BUILD_MODELS_DEMO "Build demo for some of the models" OFF)
+if(BUILD_MODELS_DEMO)
+  ADD_EXECUTABLE(puma560test puma560test.cpp)
+  TARGET_LINK_LIBRARIES(puma560test orocos-kdl-models)
+  SET_TARGET_PROPERTIES( puma560test PROPERTIES
     COMPILE_FLAGS "${CMAKE_CXX_FLAGS_ADD} ${KDL_CFLAGS}")
 
   ADD_EXECUTABLE(kukaLWRtestDHnew kukaLWRtestDHnew.cpp)
@@ -41,5 +44,5 @@ IF(BUILD_MODELS_DEMO)
   TARGET_LINK_LIBRARIES(kukaLWRtestHCG orocos-kdl-models)
   SET_TARGET_PROPERTIES( kukaLWRtestHCG PROPERTIES
     COMPILE_FLAGS "${CMAKE_CXX_FLAGS_ADD} ${KDL_CFLAGS}")
+endif()
 
-ENDIF(BUILD_MODELS_DEMO)

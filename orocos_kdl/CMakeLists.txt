@@ -85,11 +85,12 @@ if(KDL_USE_NEW_TREE_INTERFACE)
     include_directories(${Boost_INCLUDE_DIRS})
 endif(KDL_USE_NEW_TREE_INTERFACE)
 
-OPTION(ENABLE_TESTS OFF "Enable building of tests")
+OPTION(ENABLE_TESTS ON "Enable building of tests")
 IF( ENABLE_TESTS )
   # If not in standard paths, set CMAKE_xxx_PATH's in environment, eg.
   # export CMAKE_INCLUDE_PATH=/opt/local/include
   # export CMAKE_LIBRARY_PATH=/opt/local/lib
+  
   FIND_LIBRARY(CPPUNIT cppunit)
   SET(CPPUNIT ${CPPUNIT} "dl")
   FIND_PATH(CPPUNIT_HEADERS cppunit/TestRunner.h)
@@ -100,7 +101,7 @@ IF( ENABLE_TESTS )
   ENDIF ( CPPUNIT AND CPPUNIT_HEADERS )
 ENDIF(ENABLE_TESTS )
 
-OPTION(ENABLE_EXAMPLES OFF "Enable building of examples")
+OPTION(ENABLE_EXAMPLES ON "Enable building of examples")
 
 ADD_SUBDIRECTORY( doc )
 ADD_SUBDIRECTORY( src )
@@ -109,7 +110,7 @@ ADD_SUBDIRECTORY( models )
 ADD_SUBDIRECTORY( examples )
 
 
-export(TARGETS orocos-kdl
+export(TARGETS orocos-kdl APPEND
   FILE "${PROJECT_BINARY_DIR}/OrocosKDLTargets.cmake")
 
 export(PACKAGE orocos_kdl)

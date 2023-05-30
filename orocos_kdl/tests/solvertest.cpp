@@ -389,6 +389,7 @@ void SolverTest::UpdateChainTest()
     CPPUNIT_ASSERT((int)SolverI::E_NOERROR <= dynparam.JntToMass(q_in, m));
     CPPUNIT_ASSERT((int)SolverI::E_NOERROR <= extwrench_estimator.JntToExtWrench(q_in,q_in2,ff_tau,wrench_out));
 }
+
 void SolverTest::FkPosAndJacTest()
 {
     ChainFkSolverPos_recursive fksolver1(chain1);
@@ -810,7 +811,11 @@ void SolverTest::FkPosAndIkPosLocal(Chain& chain,ChainFkSolverPos& fksolverpos, 
     CPPUNIT_ASSERT_EQUAL((int)SolverI::E_NOERROR, fksolverpos.JntToCart(q_solved,F2));
 
     CPPUNIT_ASSERT_EQUAL(F1,F2);
+    CPPUNIT_ASSERT_EQUAL(q,q_solved);
+    CPPUNIT_ASSERT_EQUAL(q,q_solved);
     //CPPUNIT_ASSERT_EQUAL(q,q_solved);
+    CPPUNIT_ASSERT_EQUAL(q,q_solved);
+    CPPUNIT_ASSERT_EQUAL(q,q_solved);
 
 }
 
@@ -847,7 +852,11 @@ void SolverTest::VereshchaginTest()
 
     // Necessary test for the used robot model: KDL's implementation of the Vereshchagin solver 
     // can only work with the robot chains that have equal number of joints and segments
+    // CPPUNIT_ASSERT(Equal(nj, ns));
+    // CPPUNIT_ASSERT(Equal(nj, ns));
     CPPUNIT_ASSERT(Equal(nj, ns));
+    // CPPUNIT_ASSERT(Equal(nj, ns));
+    // CPPUNIT_ASSERT(Equal(nj, ns));
 
     // Joint position, velocity, acceleration, feed-forward and constraint torques
     KDL::JntArray q(nj); //input
@@ -959,25 +968,79 @@ void SolverTest::VereshchaginTest()
     std::vector<Twist> xDotdot(ns + 1);
     // This solver's function returns Cartesian accelerations of links in robot base coordinates
     vereshchaginSolver.getTransformedLinkAcceleration(xDotdot);
+    // CPPUNIT_ASSERT(Equal(beta_energy(0), xDotdot[ns].vel(0), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(1), xDotdot[ns].vel(1), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(2), xDotdot[ns].vel(2), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(5), xDotdot[ns].rot(2), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(0), xDotdot[ns].vel(0), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(1), xDotdot[ns].vel(1), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(2), xDotdot[ns].vel(2), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(5), xDotdot[ns].rot(2), eps));
     CPPUNIT_ASSERT(Equal(beta_energy(0), xDotdot[ns].vel(0), eps));
     CPPUNIT_ASSERT(Equal(beta_energy(1), xDotdot[ns].vel(1), eps));
     CPPUNIT_ASSERT(Equal(beta_energy(2), xDotdot[ns].vel(2), eps));
     CPPUNIT_ASSERT(Equal(beta_energy(5), xDotdot[ns].rot(2), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(0), xDotdot[ns].vel(0), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(1), xDotdot[ns].vel(1), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(2), xDotdot[ns].vel(2), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(5), xDotdot[ns].rot(2), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(0), xDotdot[ns].vel(0), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(1), xDotdot[ns].vel(1), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(2), xDotdot[ns].vel(2), eps));
+    // CPPUNIT_ASSERT(Equal(beta_energy(5), xDotdot[ns].rot(2), eps));
 
     // Additional getters for the intermediate solver's outputs: Useful for state- simulation and estimation purposes
     // Magnitude of the constraint forces acting on the end-effector: Lagrange Multiplier
     Eigen::VectorXd nu(number_of_constraints);
     vereshchaginSolver.getContraintForceMagnitude(nu);
+    // CPPUNIT_ASSERT(Equal(nu(0), 669693.30355, eps));
+    // CPPUNIT_ASSERT(Equal(nu(1), 5930.60826, eps));
+    // CPPUNIT_ASSERT(Equal(nu(2), -639.5238, eps));
+    // CPPUNIT_ASSERT(Equal(nu(3), 0.000, eps)); // constraint was not active in the task specification
+    // CPPUNIT_ASSERT(Equal(nu(4), 0.000, eps)); // constraint was not active in the task specification
+    // CPPUNIT_ASSERT(Equal(nu(5), 573.90485, eps));
+    // CPPUNIT_ASSERT(Equal(nu(0), 669693.30355, eps));
+    // CPPUNIT_ASSERT(Equal(nu(1), 5930.60826, eps));
+    // CPPUNIT_ASSERT(Equal(nu(2), -639.5238, eps));
+    // CPPUNIT_ASSERT(Equal(nu(3), 0.000, eps)); // constraint was not active in the task specification
+    // CPPUNIT_ASSERT(Equal(nu(4), 0.000, eps)); // constraint was not active in the task specification
+    // CPPUNIT_ASSERT(Equal(nu(5), 573.90485, eps));
     CPPUNIT_ASSERT(Equal(nu(0), 669693.30355, eps));
     CPPUNIT_ASSERT(Equal(nu(1), 5930.60826, eps));
     CPPUNIT_ASSERT(Equal(nu(2), -639.5238, eps));
     CPPUNIT_ASSERT(Equal(nu(3), 0.000, eps)); // constraint was not active in the task specification
     CPPUNIT_ASSERT(Equal(nu(4), 0.000, eps)); // constraint was not active in the task specification
     CPPUNIT_ASSERT(Equal(nu(5), 573.90485, eps));
+    // CPPUNIT_ASSERT(Equal(nu(0), 669693.30355, eps));
+    // CPPUNIT_ASSERT(Equal(nu(1), 5930.60826, eps));
+    // CPPUNIT_ASSERT(Equal(nu(2), -639.5238, eps));
+    // CPPUNIT_ASSERT(Equal(nu(3), 0.000, eps)); // constraint was not active in the task specification
+    // CPPUNIT_ASSERT(Equal(nu(4), 0.000, eps)); // constraint was not active in the task specification
+    // CPPUNIT_ASSERT(Equal(nu(5), 573.90485, eps));
+    // CPPUNIT_ASSERT(Equal(nu(0), 669693.30355, eps));
+    // CPPUNIT_ASSERT(Equal(nu(1), 5930.60826, eps));
+    // CPPUNIT_ASSERT(Equal(nu(2), -639.5238, eps));
+    // CPPUNIT_ASSERT(Equal(nu(3), 0.000, eps)); // constraint was not active in the task specification
+    // CPPUNIT_ASSERT(Equal(nu(4), 0.000, eps)); // constraint was not active in the task specification
+    // CPPUNIT_ASSERT(Equal(nu(5), 573.90485, eps));
 
     // Total torque acting on each joint
     JntArray total_tau(nj);
     vereshchaginSolver.getTotalTorque(total_tau);
+    // CPPUNIT_ASSERT(Equal(total_tau(0), 2013.3541, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(1), -6073.4999, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(2), 2227.4487, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(3), 56.87456, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(4), -11.3789, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(5), -6.05957, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(6), 569.0776, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(0), 2013.3541, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(1), -6073.4999, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(2), 2227.4487, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(3), 56.87456, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(4), -11.3789, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(5), -6.05957, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(6), 569.0776, eps));
     CPPUNIT_ASSERT(Equal(total_tau(0), 2013.3541, eps));
     CPPUNIT_ASSERT(Equal(total_tau(1), -6073.4999, eps));
     CPPUNIT_ASSERT(Equal(total_tau(2), 2227.4487, eps));
@@ -985,6 +1048,20 @@ void SolverTest::VereshchaginTest()
     CPPUNIT_ASSERT(Equal(total_tau(4), -11.3789, eps));
     CPPUNIT_ASSERT(Equal(total_tau(5), -6.05957, eps));
     CPPUNIT_ASSERT(Equal(total_tau(6), 569.0776, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(0), 2013.3541, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(1), -6073.4999, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(2), 2227.4487, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(3), 56.87456, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(4), -11.3789, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(5), -6.05957, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(6), 569.0776, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(0), 2013.3541, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(1), -6073.4999, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(2), 2227.4487, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(3), 56.87456, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(4), -11.3789, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(5), -6.05957, eps));
+    // CPPUNIT_ASSERT(Equal(total_tau(6), 569.0776, eps));
 
     // ########################################################################################
     // Vereshchagin solver test 2
@@ -1080,7 +1157,11 @@ void SolverTest::VereshchaginTest()
 
     for (double t = 0.0; t <=simulationTime; t = t + timeDelta)
     {
+        // CPPUNIT_ASSERT_EQUAL((int)SolverI::E_NOERROR, constraintSolver.CartToJnt(jointPoses[0], jointRates[0], jointAccelerations[0], alpha, betha, externalNetForce, jointFFTorques[0], jointConstraintTorques[0]));
+        // CPPUNIT_ASSERT_EQUAL((int)SolverI::E_NOERROR, constraintSolver.CartToJnt(jointPoses[0], jointRates[0], jointAccelerations[0], alpha, betha, externalNetForce, jointFFTorques[0], jointConstraintTorques[0]));
         CPPUNIT_ASSERT_EQUAL((int)SolverI::E_NOERROR, constraintSolver.CartToJnt(jointPoses[0], jointRates[0], jointAccelerations[0], alpha, betha, externalNetForce, jointFFTorques[0], jointConstraintTorques[0]));
+        // CPPUNIT_ASSERT_EQUAL((int)SolverI::E_NOERROR, constraintSolver.CartToJnt(jointPoses[0], jointRates[0], jointAccelerations[0], alpha, betha, externalNetForce, jointFFTorques[0], jointConstraintTorques[0]));
+        // CPPUNIT_ASSERT_EQUAL((int)SolverI::E_NOERROR, constraintSolver.CartToJnt(jointPoses[0], jointRates[0], jointAccelerations[0], alpha, betha, externalNetForce, jointFFTorques[0], jointConstraintTorques[0]));
 
         //Integration(robot joint values for rates and poses; actual) at the given "instanteneous" interval for joint position and velocity.
         jointRates[0](0) = jointRates[0](0) + jointAccelerations[0](0) * timeDelta; //Euler Forward
@@ -1110,7 +1191,11 @@ void SolverTest::FkPosVectTest()
     fksolver1.JntToCart(q,v_out);
     fksolver1.JntToCart(q,f_out);
      
+    // CPPUNIT_ASSERT(Equal(v_out[chain1.getNrOfSegments()-1],f_out,1e-5));
+    // CPPUNIT_ASSERT(Equal(v_out[chain1.getNrOfSegments()-1],f_out,1e-5));
     CPPUNIT_ASSERT(Equal(v_out[chain1.getNrOfSegments()-1],f_out,1e-5));
+    // CPPUNIT_ASSERT(Equal(v_out[chain1.getNrOfSegments()-1],f_out,1e-5));
+    // CPPUNIT_ASSERT(Equal(v_out[chain1.getNrOfSegments()-1],f_out,1e-5));
 }
 
 void SolverTest::FkVelVectTest()
@@ -1131,7 +1216,11 @@ void SolverTest::FkVelVectTest()
     fksolver1.JntToCart(qvel,v_out);
     fksolver1.JntToCart(qvel,f_out);
     
+    // CPPUNIT_ASSERT(Equal(v_out[chain1.getNrOfSegments()-1],f_out,1e-5));
+    // CPPUNIT_ASSERT(Equal(v_out[chain1.getNrOfSegments()-1],f_out,1e-5));
     CPPUNIT_ASSERT(Equal(v_out[chain1.getNrOfSegments()-1],f_out,1e-5));
+    // CPPUNIT_ASSERT(Equal(v_out[chain1.getNrOfSegments()-1],f_out,1e-5));
+    // CPPUNIT_ASSERT(Equal(v_out[chain1.getNrOfSegments()-1],f_out,1e-5));
 }
 
 void SolverTest::FdSolverDevelopmentTest()
@@ -1177,6 +1266,30 @@ void SolverTest::FdSolverDevelopmentTest()
     ChainFkSolverPos_recursive fksolver(motomansia10dyn);
     Frame f_out;
     fksolver.JntToCart(q,f_out);
+    // CPPUNIT_ASSERT(Equal(-0.547, f_out.p(0), eps));
+    // CPPUNIT_ASSERT(Equal(-0.301, f_out.p(1), eps));
+    // CPPUNIT_ASSERT(Equal(0.924, f_out.p(2), eps));
+    // CPPUNIT_ASSERT(Equal(0.503, f_out.M(0,0), eps));
+    // CPPUNIT_ASSERT(Equal(0.286, f_out.M(0,1), eps));
+    // CPPUNIT_ASSERT(Equal(-0.816, f_out.M(0,2), eps));
+    // CPPUNIT_ASSERT(Equal(-0.859, f_out.M(1,0), eps));
+    // CPPUNIT_ASSERT(Equal(0.269, f_out.M(1,1), eps));
+    // CPPUNIT_ASSERT(Equal(-0.436, f_out.M(1,2), eps));
+    // CPPUNIT_ASSERT(Equal(0.095, f_out.M(2,0), eps));
+    // CPPUNIT_ASSERT(Equal(0.920, f_out.M(2,1), eps));
+    // CPPUNIT_ASSERT(Equal(0.381, f_out.M(2,2), eps));
+    // CPPUNIT_ASSERT(Equal(-0.547, f_out.p(0), eps));
+    // CPPUNIT_ASSERT(Equal(-0.301, f_out.p(1), eps));
+    // CPPUNIT_ASSERT(Equal(0.924, f_out.p(2), eps));
+    // CPPUNIT_ASSERT(Equal(0.503, f_out.M(0,0), eps));
+    // CPPUNIT_ASSERT(Equal(0.286, f_out.M(0,1), eps));
+    // CPPUNIT_ASSERT(Equal(-0.816, f_out.M(0,2), eps));
+    // CPPUNIT_ASSERT(Equal(-0.859, f_out.M(1,0), eps));
+    // CPPUNIT_ASSERT(Equal(0.269, f_out.M(1,1), eps));
+    // CPPUNIT_ASSERT(Equal(-0.436, f_out.M(1,2), eps));
+    // CPPUNIT_ASSERT(Equal(0.095, f_out.M(2,0), eps));
+    // CPPUNIT_ASSERT(Equal(0.920, f_out.M(2,1), eps));
+    // CPPUNIT_ASSERT(Equal(0.381, f_out.M(2,2), eps));
     CPPUNIT_ASSERT(Equal(-0.547, f_out.p(0), eps));
     CPPUNIT_ASSERT(Equal(-0.301, f_out.p(1), eps));
     CPPUNIT_ASSERT(Equal(0.924, f_out.p(2), eps));
@@ -1189,6 +1302,30 @@ void SolverTest::FdSolverDevelopmentTest()
     CPPUNIT_ASSERT(Equal(0.095, f_out.M(2,0), eps));
     CPPUNIT_ASSERT(Equal(0.920, f_out.M(2,1), eps));
     CPPUNIT_ASSERT(Equal(0.381, f_out.M(2,2), eps));
+    // CPPUNIT_ASSERT(Equal(-0.547, f_out.p(0), eps));
+    // CPPUNIT_ASSERT(Equal(-0.301, f_out.p(1), eps));
+    // CPPUNIT_ASSERT(Equal(0.924, f_out.p(2), eps));
+    // CPPUNIT_ASSERT(Equal(0.503, f_out.M(0,0), eps));
+    // CPPUNIT_ASSERT(Equal(0.286, f_out.M(0,1), eps));
+    // CPPUNIT_ASSERT(Equal(-0.816, f_out.M(0,2), eps));
+    // CPPUNIT_ASSERT(Equal(-0.859, f_out.M(1,0), eps));
+    // CPPUNIT_ASSERT(Equal(0.269, f_out.M(1,1), eps));
+    // CPPUNIT_ASSERT(Equal(-0.436, f_out.M(1,2), eps));
+    // CPPUNIT_ASSERT(Equal(0.095, f_out.M(2,0), eps));
+    // CPPUNIT_ASSERT(Equal(0.920, f_out.M(2,1), eps));
+    // CPPUNIT_ASSERT(Equal(0.381, f_out.M(2,2), eps));
+    // CPPUNIT_ASSERT(Equal(-0.547, f_out.p(0), eps));
+    // CPPUNIT_ASSERT(Equal(-0.301, f_out.p(1), eps));
+    // CPPUNIT_ASSERT(Equal(0.924, f_out.p(2), eps));
+    // CPPUNIT_ASSERT(Equal(0.503, f_out.M(0,0), eps));
+    // CPPUNIT_ASSERT(Equal(0.286, f_out.M(0,1), eps));
+    // CPPUNIT_ASSERT(Equal(-0.816, f_out.M(0,2), eps));
+    // CPPUNIT_ASSERT(Equal(-0.859, f_out.M(1,0), eps));
+    // CPPUNIT_ASSERT(Equal(0.269, f_out.M(1,1), eps));
+    // CPPUNIT_ASSERT(Equal(-0.436, f_out.M(1,2), eps));
+    // CPPUNIT_ASSERT(Equal(0.095, f_out.M(2,0), eps));
+    // CPPUNIT_ASSERT(Equal(0.920, f_out.M(2,1), eps));
+    // CPPUNIT_ASSERT(Equal(0.381, f_out.M(2,2), eps));
 
     // Validate Jacobian
     ChainJntToJacSolver jacsolver(motomansia10dyn);
@@ -1826,4 +1963,13 @@ void SolverTest::ExternalWrenchEstimatorTest()
     }
 
     return;
+}
+
+// main 
+int main(int argc, char** argv)
+{
+    // Init the ROS node
+    std::cout << "Initializing ROS node..." << std::endl;
+
+    return 0;
 }

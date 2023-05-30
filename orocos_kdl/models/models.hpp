@@ -32,4 +32,16 @@ Chain KukaLWRsegment();
 Chain KukaLWR_DHnew();
 
 }
+
+// # how to use Puma560() in rnd_project/src/solver_test/src/main.cpp
+
+// #include <chain.hpp>
+// #include "models.hpp"
+// #include <utilities/utility.h>
+
+// int main(int argc, char** argv)
+// {
+//     KDL::Chain chain = KDL::Puma560();
+//     return 0;
+
 #endif
